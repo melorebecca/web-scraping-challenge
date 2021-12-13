@@ -5,13 +5,12 @@ import pandas as pd
 import requests
 import pymongo
 
-def init_browser():
+def scrape():
+     
     # @NOTE: Replace the path with your actual path to the chromedriver
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
     browser = Browser('chrome', **executable_path, headless=False)
-
-def scrape():
-    browser = init_browser()
+    
     mars_dict ={}
     
     # Mars News URL 
@@ -39,10 +38,13 @@ def scrape():
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     tables = pd.read_html(facts_url)
+    
     mars_facts_df= tables[1]
     mars_facts_df.columns = ['Category', 'Mars Value']
-    mars_html_table = mars_facts_df.to_html()
+    mars_html_table = mars_facts_df
+    
     mars_html_table.replace('\n', '')
+    mars_html_table = mars_facts_df.to_html(classes= 'table table-striped')
     
     # Mars hemisphere name and images to be scraped
     hemispheres_url = 'https://marshemispheres.com/'
@@ -72,9 +74,9 @@ def scrape():
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url,
-        "fact_table": str(mars_html_table),
-        "image_tile": image_title,
-        "hemisphere_images": image_list
+        "fact_table": mars_html_table,
+        # "image_tile": image_title,
+        # "hemisphere_images": image_list
     }
 
     return mars_dict
