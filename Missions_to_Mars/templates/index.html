@@ -17,6 +17,7 @@
         <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
       </div>
   
+      <!-- Latest News -->
       <div class="row">
         <div class="col-md-12">
           <h2><u>Latest Mars News</u></h2>
@@ -31,7 +32,7 @@
       </div>
 
     <hr>
-
+      <!-- Featured Imaged -->
       <div class="row">
         <div class="col-md-8 border">
           <h2 class=""><u>Featured Mars Image</u></h2> 
@@ -45,13 +46,34 @@
             <div class="row" id="mars_table">
               <h4> Mars Facts </h4>
               <table>
-                {{mars_dict.mars_facts | safe}}
+                {{mars_dict.fact_table | safe}}
               </table>
         </div>
       </div>
 
     <hr>
-
+  </div><!---container for Hempisphre images and table-->
+  <h3 style="padding-top:30px; text-align: center;">Mars Hemispheres</h3>
+  <div class='card-deck'>
+    <div class='colimages-md-12'>
+        <div class="row">
+            {% for image in mars_dict.mars_hemisphere_images %}
+            <div class="col-md-6">
+                <div class="card text-white bg-dark" style="margin: 0px;">
+                    <img class="card-img-top" src="{{image.img_url}}" width="250" />
+                    <div class="card-body">
+                      <h4>{{image.hemisphere_title}}</h4> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          </br>
+        </div>
+        </div>
+          </div>
+          </div>
+    </div>
+  </div>
 
     
   </body>
